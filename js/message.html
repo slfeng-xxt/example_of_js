@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态双向绑定</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #app {
+      margin: 0 auto;
+      margin-top: 50px;
+      width: 300px;
+    }
+    p{
+      padding: 10px;
+    }
+    table {
+      margin-top: 20px ;
+    }
+    th,td {
+      padding-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <fieldset>
+      <legend>学生录入系统</legend>
+      <p>
+        <span>姓名：</span>
+        <input type="text" name="username" class="username">
+      </p>
+      <p>
+        <span>年龄：</span>
+        <input type="text" name="age" class="age">
+      </p>
+      <p>
+        <span>性别：</span>
+        <select name="sex" id="sex">
+          <option value="男">男</option>
+          <option value="女">女</option>
+        </select>
+      </p>
+      <p>
+        <span>手机：</span>
+        <input type="text" name="phone" class="phone">
+      </p>
+      <p>
+        <button id="btn">submit</button>
+      </p>
+    </fieldset>
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>性别</th>
+          <th>手机</th>
+        </tr>
+      </thead>
+      <tbody class="tbody"></tbody>
+    </table>
+  </div>
+  <script>
+    //逻辑 添加信息并展示 删除操作
+    let stu = [];  
+    let sex = document.getElementById('sex');
+    let btn = document.getElementById('btn');
+    let input = document.getElementsByTagName('input');
+    let tbody = document.getElementsByClassName('tbody')[0];
+    let tr = tbody.childNodes;//方法一
+    //渲染函数
+    function draw(stu) {
+      let str = '';
+      let newStu = stu;
+      newStu.forEach((item,index)=>{
+        str += '<tr class="newTr"><td>' + item.name +'</td><td>' + item.age +'</td><td>' + item.sex +'</td><td>'+item.phone+'</td><td onclick="del('+index+')">删除</td></tr>'; 
+      })
+      tbody.innerHTML = str;
+    }
+    // 添加事件
+    btn.onclick = function () {
+      let obj = {name:input[0].value,age:input[1].value,sex:sex.value,phone:input[2].value};
+      stu.push(obj);
+      draw(stu);
+    }
+    // （有点问题？不按顺序删为什么最后一个删不掉；因为index不一致了；如何解决？删除后数组重新渲染）
+    function del(index) {
+      //删除数组数据
+      stu.splice(index,1);
+      // 删除页面数据
+      //方法一
+      tbody.removeChild(tr[index]);
+      //方法二
+      // let res = document.getElementsByClassName('newTr')[index];
+      // tbody.removeChild(res);
+      draw(stu);
+    }
+  </script>
+</body>
+</html>

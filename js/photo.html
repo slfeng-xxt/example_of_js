@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>相册选择</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .big {
+      width: 400px;
+      height: 400px;
+    }
+    .small>img {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <img src="./img/luffy.jpg" alt="luffy" class="big" id="big">
+  </div>
+  <div class="small">
+    <img src="./img/luffy.jpg" alt="">
+    <img src="./img/usopp.jpg" alt="">
+    <img src="./img/zoro.jpg" alt="">
+    <img src="./img/roux.jpg" alt="">
+  </div>
+  <script>
+    let imgs  = document.getElementsByTagName('img');
+    for (let i = 1; i < imgs.length; i++) {
+      imgs[i].onmouseover = function () {
+        imgs[0].src = this.src;
+      }
+    }
+  </script>
+</body>
+</html>

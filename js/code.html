@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>验证码</title>
+  <style>
+    .v_code {
+      width: 280px;
+      height: 280px;
+      background-color: #eee;
+      padding: 20px;
+      margin: 0 auto;
+    }
+    .code_show {
+      display: flex;
+      padding: 5px;
+    }
+    .code {
+      flex: 1;
+      height: 26px;
+      line-height: 26px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: yellow;
+      color: blue;
+    }
+    a {
+      flex: 2;
+      padding-left: 15px;
+      height: 26px;
+      line-height: 26px;
+      text-align: center;
+      font-size: 14px;
+      color: tomato;
+    }
+    .input_code {
+      display: flex;
+      padding: 5px;
+      margin-bottom: 20px;
+    }
+    .input_code label {
+      flex: 3;
+    }
+    .input_code input {
+      flex: 2；
+
+    }
+    #text_show {
+      flex: 1;
+    }
+    #Button1 {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="v_code">
+    <div class="code_show">
+      <span class="code"></span>
+      <a id="linkbt">看不清换一张</a>
+    </div>
+    <div class="input_code">
+      <label for="inputCode">验证码：</label>
+      <input type="text" id="inputCode"/>
+      <span id="text_show"></span>
+    </div>
+    <input id="Button1" type="button" value="确定" />
+  </div>
+  <script>
+    //进入页面
+    window.onload = function() {
+      getCode();
+    }
+    //刷新验证码的方法
+    function getCode() {
+      //生成验证码
+      let str = '';
+      let newArr = [];
+      let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+          'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+          'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+      for (let i = 0; i < 6; i++) {
+        let num = Math.floor(Math.random()*62);
+        str += arr[num];
+        // newArr.push(arr[num]);
+      }
+      console.log(str);
+      // console.log(newArr.join(''));
+      document.getElementsByClassName('code')[0].innerHTML = str;    
+    }
+    //点击刷新验证码
+    document.getElementById('linkbt').onclick = function() {
+      getCode();
+    }
+    //点击确定时，校验验证码
+    document.getElementById('Button1').onclick = function() {
+      let code = document.getElementsByClassName('code')[0].innerHTML;
+      let inputCode = document.getElementById('inputCode').value;
+      if (code != inputCode) {
+        alert('您输入的验证码有误。');
+        return false;
+      }else{
+        alert('恭喜您通过验证。');
+        getCode();
+        return false;
+      }
+    }
+  </script>
+</body>
+</html>

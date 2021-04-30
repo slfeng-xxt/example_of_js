@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移动靶心</title>
+  <style>
+    *{
+      margin: 0px;
+      padding: 0px;
+    }
+    .box {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: chocolate;
+      position: absolute;
+    }
+    button {
+      position: relative;
+      top: 80px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box"></div>
+  <button>start</button>
+  <button>stop</button>
+  <script>
+    //逻辑 一个元素动起来是通过样式的操作，连续移动需要定时器（需要开关防止多个定时器累积）移动范围条件
+    let btns = document.getElementsByTagName('button');
+    let box = document.getElementsByClassName('box')[0];
+    let res = document.body.offsetWidth;
+    let div = box.offsetWidth;
+    let num = 0;
+    let timer = null;
+    btns[0].onclick = function () {
+      let speed = 20;
+      if (timer == null) {
+        timer = setInterval(() => {
+          num += speed;
+          if(num >= res-div || num<=0){//核心一
+            speed = -speed;
+          }
+          box.style.left =  num + 'px';//核心二
+        }, 1000);  
+      }
+    }
+    btns[1].onclick = function () {
+      clearInterval(timer);
+      timer = null;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>电影票选座</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul {
+      display: flex;
+      flex-flow: wrap;
+      justify-content: space-around;
+      width: 400px;
+      height: 300px;
+      margin: 0 auto;
+      margin-top: 50px;
+      border: 1px solid black;
+    }
+
+    li {
+      margin-top: 5px;
+      width: 60px;
+      height: 30px;
+      background: chartreuse;
+      list-style: none;
+    }
+
+    div {
+      padding-top: 15px;
+      width: 150px;
+      text-align: center;
+      border: 1px solid red;
+    }
+
+    .click {
+      font-size: 10px;
+      text-align: center;
+      line-height: 30px;
+      font-family: '仿宋';
+      font-weight: bold;
+      color: #333;
+      background: orange;
+      border: 1px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <ul>
+    <li class="click">座位已选</li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <div>屏幕中央</div>
+  </ul>
+  <script>
+    //逻辑 没有click时候添加，同时对文本添加，反之清空click以及文字
+    let list = document.getElementsByTagName('li');
+    for (let i = 0; i < list.length; i++) {
+      list[i].onclick = function () {
+        let res = this.getAttribute('class');
+        if (!res) {
+          this.setAttribute('class', 'click');
+          this.innerText = '座位已选';
+        } else {
+          this.setAttribute('class', '');
+          this.innerText = '';
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>返回首页</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .longbg {
+      height: 2000px;
+    }
+    .return {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      margin:auto 30px 30px auto;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      background-color: tomato;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="longbg">
+    <h2>返回首页</h2>
+    <div class="return">
+      <p>return</p>
+    </div>
+  </div>
+  <script>
+    //返回首页操作 逻辑：1当用户滑动滚动条到达400px，返回按钮显示，反之隐藏
+    //2.点击 返回时 滚动条恢复
+    let p = document.getElementsByClassName('return')[0];
+    window.onscroll = function () {
+      let res = document.body.scrollTop || document.documentElement.scrollTop;//核心
+      if(res >= 400){
+        p.style.display = 'block';
+      }else{
+        p.style.display = 'none';
+      }
+    }
+    p.onclick = function () {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+    //当
+  </script>
+</body>
+</html>

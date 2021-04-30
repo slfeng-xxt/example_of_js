@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全选，反选</title>
+</head>
+<body>
+  <form action="">
+    <p><input type="checkbox" name="" id="">aaaaa</p>
+    <p><input type="checkbox" name="" id="">bbbbb</p>
+    <p><input type="checkbox" name="" id="">ccccc</p>
+    <p><input type="checkbox" name="" id="">ddddd</p>
+  </form>
+  <button>全选</button>
+  <button>全不选</button>
+  <button>反选</button>
+  <script>
+    //获取给三个按钮，并绑定事件
+    let buttons = document.getElementsByTagName('button');
+    let inputs = document.getElementsByTagName('input');
+    buttons[0].onclick = function () {
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].checked = true;
+      }
+    }
+    buttons[1].onclick = function () {
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].checked = false;
+      }
+    }
+    buttons[2].onclick = function () {
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].checked = !inputs[i].checked;
+      }
+    }
+  </script>
+</body>
+</html>

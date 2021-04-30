@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鼠标绑定小盒子</title>
+  <style>
+    *{
+      margin: 0px;
+      padding: 0px;
+    }
+    .box{
+      width: 50px;
+      height: 50px;
+      background: coral;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>鼠标绑定小盒子</h2>
+  <div class="box"></div>
+  <script>
+    //逻辑获取鼠标的xy坐标后给box位置赋值left,top
+    let div = document.getElementsByTagName('div')[0];
+    document.onmouseover = function (event) {
+      // event是你当前所执行的操作对应的事件，里面包含所有相关的信息，
+      // 你可以通过event的属性和方法进行查看和调用。e=event||window.event是对浏览器兼容性的处理，
+      let e = event || window.event;
+      // console.log(event);
+      div.style.left = e.clientX-div.clientWidth/2 + 'px';
+      div.style.top = e.clientY-div.clientHeight/2 + 'px';
+    }
+  </script>
+</body>
+</html>

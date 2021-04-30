@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搜索框功能</title>
+  <style>
+    .content {
+      padding-top: 50px;
+      text-align: center;
+      margin: 0 auto;
+      width: 300px;
+    }
+    .search {
+      background-color: tomato;
+      padding: 5px;
+    }
+    .show {
+      text-align: left;
+      padding-left: 40px;
+      height: 200px;
+      display: none;
+    }
+    p {
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <div class="search">
+      <input type="text" id="val" placeholder="请输入关键字"/>
+      <input type="submit" id="sub"/>
+    </div>
+    <div class="show" id="show"></div>
+  </div>
+  <script>
+    //模拟后台数据
+    let arr = ['vue','react','js','jquery','java','c','c++'];
+    //实现搜索功能
+    //1.先完成展示区域的显示或隐藏
+    let input = document.getElementById('val');
+    let show = document.getElementById('show');
+    //键盘输入时触发
+    input.onkeyup = function () {
+      show.style.display = 'block';
+      //模拟根据输入的信息到后台查询匹配
+      let str = '';
+      arr.forEach((item)=>{
+        let res = item.indexOf(input.value);
+        if (res != -1) {
+          // show.innerText = item;
+          str += '<p>'+item + '</p>'
+        }
+      })
+      if (!input.value || !str) {
+        show.innerHTML = '<p>暂无记录</p>'
+      }else{
+        show.innerHTML = str;
+      }
+    } 
+    //失去焦点是触发
+    input.onblur = function () {
+      show.style.display = 'none';
+    }
+    document.getElementById('sub').onclick = function () {
+      
+    }
+  </script>
+</body>
+</html>

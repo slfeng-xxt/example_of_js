@@ -1,0 +1,31 @@
+{
+  "msg":1,
+  "data":[
+    {
+      "title":"手机",
+      "content":[
+        {
+          "title":"apple",
+          "content":["iphone7","iphone8"]
+        },
+        {
+          "title":"xiaomi",
+          "content":["xiaomi6","xiaomi8"]
+        }
+      ]
+    },
+    {
+      "title":"家电",
+      "content":[
+        {
+          "title":"冰箱",
+          "content":["海尔","奥克斯"]
+        },
+        {
+          "title":"电视机",
+          "content":["长虹","三星"]
+        }
+      ]
+    }
+  ]
+}

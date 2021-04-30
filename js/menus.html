@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三级菜单(两种方法实现)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      list-style: none;
+      float: left;
+      width: 100px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      border-right: 1px solid white;
+      border-top: 1px solid white;
+    }
+
+    a {
+      width: 100px;
+      height: 30px;
+      text-decoration: none;
+      display: block;
+      color: black;
+    }
+
+    ul>li>a {
+      background: red;
+    }
+
+    ul>li>a:hover {
+      background: yellow;
+    }
+
+    ul>li>ul>li>ul {
+      margin-top: -31px;
+      margin-left: 101px;
+    }
+
+    /*下面三行核心代码*/
+    ul>li>ul {
+      display: none;
+    }
+
+    /*次行代码不仅作用与二级菜单还作用于三级菜单*/
+    ul>li:hover>ul {
+      display: block;
+    }
+
+    ul>li>ul>li:hover>ul {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>1.css实现（hover）</h2>
+  <h2>2.js实现(onmouseover,onmouseout)</h2>
+  <ul id="ul1">
+    <!-- <li class="li1">
+      <a href="##">一级导航</a>
+      <ul class="ul2">
+        <li class="li2">
+          <a href="##">二级导航</a>
+          <ul class="ul3">
+            <li class="li3">
+              <a href="##">三级导航</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li> -->
+  </ul>
+  <script>
+    //1.先获取数据(ajax原生写法)
+    let xml = new XMLHttpRequest();
+    xml.open('get', './mock/nav.json', true);
+    xml.send();
+    xml.onreadystatechange = function () {
+      // console.log(xml.status);//服务器状态
+      // console.log(xml.readyState);//服务器状态
+      if (xml.status == 200 && xml.readyState == 4) {
+        //xml.responseText是json格式字符串，先转为对象
+        let res = JSON.parse(xml.responseText);
+        // console.log(res.data);
+        let datas = res.data;
+        let li1 = '';
+        datas.forEach((fir) => {
+          let li2 = '';
+          fir.content.forEach((sec) => {
+            let li3 = '';
+            sec.content.forEach((thr) => {
+              li3 += '<li class="li3"><a href="##">' + thr + '</a></li>';
+            });
+            li2 += '<li class="li2"><a href="##">' + sec.title + '</a><ul class="ul3">' + li3 + '</ul></li>';
+          });
+          li1 += '<li class="li1"><a href="##">' + fir.title + '</a><ul class="ul2">' + li2 + '</ul></li>';
+        });
+        //2.把拼接好的元素插入
+        document.getElementById('ul1').innerHTML = li1;
+
+        //3.显示和隐藏功能
+        let one = document.getElementsByClassName('li1');
+        let ul2 = document.getElementsByClassName('ul2');
+        let twe = document.getElementsByClassName('li2');
+        let ul3 = document.getElementsByClassName('ul3');
+
+        //二级菜单显示隐藏
+        // showAndHide(one,ul2);
+        //三级菜单显示隐藏
+        // showAndHide(twe,ul3);
+      }
+    }
+    //封装的显示隐藏方法
+    function showAndHide(li,ul) {
+      for (let i = 0; i < li.length; i++) {
+        const element = li[i];
+        element.index = i;
+        element.onmouseover = function () {
+            ul[this.index].style.display = 'block';
+          };
+          element.onmouseout = function () {
+            ul[this.index].style.display = 'none';
+          };
+        }
+    }
+  </script>
+</body>
+
+</html>

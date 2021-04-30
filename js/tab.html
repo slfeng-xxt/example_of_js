@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>选项卡</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .tab {
+      text-align: center;
+      margin: 0 auto;
+    }
+    ul li{
+      display: inline-block;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      padding: 5px;
+      background-color: lightgreen;
+    }
+    .img {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    img {
+      width: 200px;
+      height: 200px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="tab">
+    <ul>
+      <li>apoo</li>
+      <li>brook</li>
+      <li>robin</li>
+      <li>nami</li>
+    </ul>
+    <div class="img">
+      <img src="img/apoo.jpg" alt="" style="display: block;">
+      <img src="img/brook.jpg" alt="">
+      <img src="img/robin.jpg" alt="">
+      <img src="img/nami.jpg" alt="">
+    </div>
+  </div>
+  <script>
+    //业务逻辑：1.移动到那个选项上自己背景改变；2.对应的内容区域要显示；3.移除时背景恢复，对应 区域隐藏
+    let li = document.getElementsByTagName('li');
+    let img = document.getElementsByTagName('img');
+    for (let i = 0; i < li.length; i++) {
+      li[i].index = i;
+      li[i].onmouseover = function () {
+        this.style.backgroundColor = 'yellow';
+        img[i].style.display = 'block';
+      }
+      li[i].onmouseout = function () {
+        this.style.backgroundColor = 'lightgreen';
+        img[i].style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>倒计时demo</title>
+  <style>
+    div {
+      width: 500px;
+      background-color: #eee;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    #jumpTo {
+      color: red;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h2>选择成功</h2>
+    <span id="jumpTo">10</span>秒后自动返回首页
+    <p>
+      <button>立即返回</button>
+    </p>
+  </div>
+  <script>
+    //逻辑，1加载页面时触发定时器
+    window.onload = function() {
+      let timer = 10;
+      setInterval(() => {  
+        timer--;
+        document.getElementById('jumpTo').innerText = timer;
+        if (timer == 0) {
+          location.href = 'https://www.liaoxuefeng.com/wiki/1022910821149312/1023442583285984';
+        }
+      }, 1000);
+    }
+    document.getElementsByTagName('button')[0].onclick = function() {
+      location.href = 'https://www.liaoxuefeng.com/wiki/1022910821149312/1023442583285984';
+    }
+  </script>
+</body>
+</html>
