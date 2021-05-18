@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>放大镜</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #smallImg {
+      width: 300px;
+      height: 300px;
+      background-image: url(./img/luff.jpg);
+      background-size: cover;
+    }
+
+    #smallDiv {
+      width: 100px;
+      height: 100px;
+      background-color: rgba(255, 0, 0, .2);
+      display: none;
+      position: absolute;
+    }
+
+    #bigDiv {
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      left: 300px;
+      top: 0px;
+      overflow: hidden;
+      display: none;
+    }
+
+    #bigImg {
+      width: 900px;
+      height: 900px;
+      position: absolute;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="magnifier">
+    <div id="smallImg">
+      <div id="smallDiv"></div>
+    </div>
+    <div id="bigDiv">
+      <img src="./img/luff.jpg" alt="" id="bigImg">
+    </div>
+  </div>
+
+  <script>
+    //逻辑 1.鼠标移入时，出现 smallDiv & bigDiv 移出隐藏
+    let smallImg = document.getElementById('smallImg');
+    let smallDiv = document.getElementById('smallDiv');
+    let bigDiv = document.getElementById('bigDiv');
+    let bigImg = document.getElementById('bigImg');
+    smallImg.onmouseover = function () {
+      smallDiv.style.display = 'block';
+      bigDiv.style.display = 'block';
+      //鼠标绑定遮挡层
+      // let e = event || window.event;
+      // smallDiv.style.left = e.clientX-smallDiv.clientWidth/2 + 'px';
+      // smallDiv.style.top = e.clientY-smallDiv.clientHeight/2 + 'px';
+    }
+    smallImg.onmouseout = function () {
+      smallDiv.style.display = 'none';
+      bigDiv.style.display = 'none';
+    }
+    //2. smallDiv 与 bigDiv 的移动方向相反 (放大比例问题)
+    // 小div/小图 = 大div/大图
+    //  100/300  =  300/900  (3倍)
+    //  50/300   =  200/1200 (6倍)
+    smallImg.onmousemove = function (event) {
+      let e = event || window.event;
+      let x = e.clientX - smallDiv.clientWidth / 2;
+      let y = e.clientY - smallDiv.clientHeight / 2;
+      //控制鼠标移动范围
+      if (x>=200) x=200;
+      if (x<=0) x=0;
+      if (y>=200) y=200;
+      if (y<=0) y=0;
+      //smallDiv
+      smallDiv.style.left = x + 'px';
+      smallDiv.style.top = y + 'px';
+      //bigDiv
+      bigImg.style.left = -3*x + 'px';
+      bigImg.style.top = -3*y + 'px';
+    }
+  </script>
+</body>
+
+</html>

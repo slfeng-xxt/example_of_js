@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>热榜</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    div {
+      margin: 0 auto;
+      margin-top: 50px;
+      background: salmon;
+      width: 250px;
+    }
+    h2 {
+      display: inline-block;
+      padding-left: 5px;
+      padding-top: 5px;
+      width: 100px;
+    }
+    button {
+      position: relative;
+      top: 5px;
+      right: 5px;
+      float: right;
+      margin-top: 5px;
+    }
+    ul{
+      border: 2px solid darkgreen;
+      padding-bottom: 10px;
+    }
+    li {
+      list-style: none;
+    }
+    li>a {
+      text-decoration: none;
+      padding-left: 5px;
+    }
+    li>span {
+      float: right;
+      padding-right: 5px;
+    }
+
+  </style>
+   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+
+<body>
+  <div>
+    <h2>热搜</h2>
+    <button id="btn">换一换</button>
+    <ul>
+      <!-- <li><a href="">xxxxxxxxxxxxxx</a><span>111111</span></li>
+      <li><a href="">dddddddddddddd</a><span>122314</span></li>
+      <li><a href="">tgregggggggggg</a><span>2345</span></li>
+      <li><a href="">ffffffffsssssss</a><span>3452</span></li>
+      <li><a href="">ffffffffsssssss</a><span>3452</span></li>
+      <li><a href="">ffffffffsssssss</a><span>3452</span></li>
+      <li><a href="">ffffffffsssssss</a><span>3452</span></li>
+      <li><a href="">ffffffffsssssss</a><span>3452</span></li>
+      <li><a href="">ffffffffsssssss</a><span>3452</span></li> -->
+    </ul>
+  </div>
+  <script>
+    //逻辑:获取数据（ajax） 之后展示(js动态拼接)
+    $(function(){
+      $.ajax({
+        type:"get",
+        url:"./mock/top.json",
+        data:{},
+        dataType:"json",
+        success:function(res){
+          console.log(res);
+          let data = res.data;
+          let str = '';
+          data.forEach((item)=>{
+            str += '<li><a href="">'+item.title+'</a><span>'+item.num+'</span></li>';
+          })
+          $("ul li").remove();
+          $("ul").append(str);
+        }
+    })
+    })
+  </script>
+</body>
+
+</html>

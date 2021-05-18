@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>飞机大战</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #box {
+      width: 610px;
+      height: 536px;
+      border: 1px solid orangered;
+      background: url('./img/airplane.PNG') no-repeat 0px -1000px;
+      position: relative;
+    }
+
+    #img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 50px;
+      left: 250px;
+    }
+
+    #control {
+      margin: 30px 200px;
+    }
+
+    #control button {
+      width: 60px;
+      height: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <img src="./img/plane.PNG" alt="" id="img">
+  </div>
+  <div id="control">
+    <button>start</button>
+    <button>stop</button>
+  </div>
+  <script>
+    //逻辑 背景图片先下移动
+    let box = document.getElementById('box');
+    let img = document.getElementById('img');
+    let button = document.getElementsByTagName('button');
+    let num = 0;
+    let timer = null;
+    function start() {
+      if (timer == null) {
+        timer = setInterval(() => {
+          num++;
+          if (num >= 1000) num = 0;
+          box.style.backgroundPosition = '0px ' + (-1000 + num) + 'px';
+        }, 10);
+      }
+    }
+    button[0].onclick = function () {
+      start();
+    }
+    button[1].onclick = function () {
+      clearInterval(timer);
+      timer = null;
+    }
+    //实现飞机的移动
+    window.document.onkeydown = function (event) {
+      let e = event || window.event;
+      // console.log(e.keyCode);//keyCode是键盘按键码
+      if (e.keyCode == 37) {
+        //offset client scroll
+        //offsetTop 一个元素到父级的顶部距离（父级必须有position属性）
+        let left = img.offsetLeft - 10;
+        if (left <= 10) left = 10;
+        img.style.left = left + 'px';
+      };
+      if (e.keyCode == 38) {
+        let top = img.offsetTop - 10;
+        if (top <= 10) top = 10;
+        img.style.top = top + 'px';
+      };
+      if (e.keyCode == 39) {
+        let right = img.offsetLeft + 10;
+        if (right >= 500) right = 500;
+        img.style.left = right + 'px';
+      };
+      if (e.keyCode == 40) {
+        let down = img.offsetTop + 10;
+        if (down >= 420) down = 420;
+        img.style.top = down + 'px';
+      };
+
+    }
+  </script>
+</body>
+
+</html>

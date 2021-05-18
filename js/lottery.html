@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>抽奖功能</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #father{
+      width: 600px;
+      height: 600px;
+      margin: 0 auto;
+      margin-top: 50px;
+      border: 1px solid red;
+    }
+    #father>div {
+      width: 33%;
+      height: 33%;
+      float: left;
+      text-align: center;
+      line-height: 200px;
+      border: 1px solid red;
+      font-weight: bold;
+      font-size: 30px;
+    }
+    #start {
+      cursor: pointer;
+      background: coral;
+    }
+  </style>
+</head>
+<body>
+  <div id="father">
+    <div class="option">百万现金</div>
+    <div class="option">2毛</div>
+    <div class="option">3毛</div>
+    <div class="option">4毛</div>
+    <div id="start">开始抽奖</div>
+    <div class="option">5毛</div>
+    <div class="option">6毛</div>
+    <div class="option">7毛</div>
+    <div class="option">谢谢参与</div>
+  </div>
+  <script>
+    //逻辑：点击开始触发定时器，定时器内部有个随机函数
+    let start = document.getElementById("start");
+    let options = document.getElementsByClassName("option");
+    let timer = null;//设置开关
+    start.onclick = function() {
+      let counter = 0;
+      if (timer == null) {
+        timer = setInterval(() => {
+          counter++;
+          //产生随机数
+          let num = Math.ceil(Math.random()*(7-0)+0);
+          //清除样式
+          for (let i = 0; i < options.length; i++) {
+            const element = options[i];
+            element.style.backgroundColor = "#fff"
+          }
+          // 给选中元素添加样式
+          options[num].style.backgroundColor = 'coral';
+          //到时间后停止
+          if (counter == 25) {
+            clearInterval(timer);
+            timer = null;
+          }
+        }, 200);
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轮播图</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    a,
+    ul,
+    li {
+      list-style: none;
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: 600px;
+      height: 500px;
+      margin: 100px auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .navs {
+      width: 4200px;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: -600px;
+      border: 1px solid orangered;
+    }
+
+    .navs li {
+      width: 600px;
+      height: 100%;
+      float: left;
+    }
+
+    .navs li img {
+      width: 100%;
+      height: 100%;
+    }
+
+    #btns {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: inline-block;
+      width: 600px;
+      height: 40px;
+      background: rgba(0, 0, 0, .3);
+      text-align: center;
+    }
+
+    #btns li {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ccc;
+      position: relative;
+      left: 220px;
+      top: 10px;
+      margin-left: 10px;
+      float: left;
+    }
+
+    #btns .active {
+      background: chocolate;
+    }
+  </style>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+
+<body>
+  <div class="wrap" id="box">
+    <ul id="navs" class="navs">
+      <li><a href="javascript:;"><img src="./img/luff.jpg" alt=""></a></li>
+      <li><a href="javascript:;"><img src="./img/apoo.jpg" alt=""></a></li>
+      <li><a href="javascript:;"><img src="./img/franky.jpg" alt=""></a></li>
+      <li><a href="javascript:;"><img src="./img/zoro.jpg" alt=""></a></li>
+      <li><a href="javascript:;"><img src="./img/jinbei.jpg" alt=""></a></li>
+      <li><a href="javascript:;"><img src="./img/luff.jpg" alt=""></a></li>
+      <li><a href="javascript:;"><img src="./img/apoo.jpg" alt=""></a></li>
+    </ul>
+    <ul id="btns">
+      <li class="btn active"></li>
+      <li class="btn"></li>
+      <li class="btn"></li>
+      <li class="btn"></li>
+      <li class="btn"></li>
+    </ul>
+  </div>
+  <script>
+    //业务逻辑 1.图片不断向左侧移动 对应的小圆点变色（定时器实现）
+    let leftNum = 0;//定义左移距离
+    let index = 0;//定义小圆点下标
+    let timer = null;
+    //定义轮播方法
+    function swiper() {
+      //   let navs = document.getElementById("navs");
+      //   let btns = document.getElementById("btns");
+      if (timer == null) {
+
+        timer = setInterval(() => {
+          leftNum -= 600;
+          //到最后一张时再回到第一张
+          if (leftNum == -3600) {
+            // navs.style.left = '-600px';
+            $('#navs').css('left', -600);
+            //设置到第二张
+            leftNum = -600;
+            index = 0;
+          }
+          //图片向左移动
+          // navs.style.left = leftNum + 'px';
+          // $('#navs').css('left',leftNum);
+          //添加动画
+          $('#navs').animate({ left: leftNum }, 500);
+
+          //小圆点跟随功能(选中的加active，其他同伴清除active)
+          $('#btns li').eq(index).addClass('active').siblings().removeClass('active');
+          index++;
+        }, 2000);
+      }
+    }
+    $(function () {
+      // // window.onload = function() {
+      swiper();
+      // }
+    })
+    //鼠标移入清除定时器
+    $(".wrap").mousemove(() => {
+      clearInterval(timer);
+      timer = null;
+    });
+    //鼠标移出开启定时器
+    $(".wrap").mouseout(() => {
+      swiper();
+    });
+  </script>
+</body>
+
+</html>
